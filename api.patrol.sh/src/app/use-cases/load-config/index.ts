@@ -1,1 +1,1 @@
-export * from './load-config.use-case'
+export * from "./load-config.use-case";

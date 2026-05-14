@@ -1,1 +1,1 @@
-export * from './file-load-patrol-config'
+export * from "./file-load-patrol-config";

@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "bun run --hot src/server.ts",
-    "check": "biome check ./src/**/*.ts --write"
+    "check": "biome check ./src --write"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.15",
