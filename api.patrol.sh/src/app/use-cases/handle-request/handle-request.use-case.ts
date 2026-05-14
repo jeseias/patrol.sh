@@ -1,4 +1,4 @@
-import { DomainError, InvalidPrefixError, NoPatrolConfigFoundError, ServiceNotFoundError, type IncomingRequest, type OutgoingResponse, type PatrolConfig } from "@/domain"
+import { API_PATROL_PREFIX, DomainError, InvalidPrefixError, NoPatrolConfigFoundError, ServiceNotFoundError, type IncomingRequest, type OutgoingResponse, type PatrolConfig } from "@/domain"
 
 export class HandleRequestUseCase {
   async execute(request: IncomingRequest): Promise<OutgoingResponse> {
@@ -28,7 +28,7 @@ export class HandleRequestUseCase {
       return [new NoPatrolConfigFoundError("Please create a patrol.yaml file to configure the gateway"), null]
     }
     
-    const current_url = `${config.gateway_url}p`
+    const current_url = `${config.gateway_url}${API_PATROL_PREFIX}`
     const incoming_prefix = request.url.split(current_url)[1]?.split("/")[1]
     
     if (!incoming_prefix) {
