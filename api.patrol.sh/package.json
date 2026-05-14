@@ -4,9 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --hot src/server.ts"
+    "dev": "bun run --hot src/server.ts",
+    "check": "biome check ./src/**/*.ts --write"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.4.15",
     "@types/bun": "latest"
   },
   "peerDependencies": {
