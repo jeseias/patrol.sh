@@ -15,7 +15,7 @@ const server = Bun.serve({
         timestamp: new Date().toISOString(),
       }, { status: 200 })
     },
-    "/p": async (request) => {
+    "/p/*": async (request) => {
       const incoming_request: IncomingRequest = {
         url: request.url,
         headers: request.headers.toJSON(),
@@ -31,6 +31,7 @@ const server = Bun.serve({
 
 use_case_factory.load_config_use_case().execute().then(config => {
   global_patrol_config = config
+  global_patrol_config.gateway_url = String(server.url)
 })
 
 
