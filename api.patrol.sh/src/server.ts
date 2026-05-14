@@ -1,4 +1,4 @@
-import type { IncomingRequest, PatrolConfig } from "./domain"
+import { API_PATROL_PREFIX, type IncomingRequest, type PatrolConfig } from "./domain"
 import { _env } from "./infra/config"
 import { use_case_factory } from "./infra/factories"
 
@@ -15,7 +15,7 @@ const server = Bun.serve({
         timestamp: new Date().toISOString(),
       }, { status: 200 })
     },
-    "/p/*": async (request) => {
+    [`/${API_PATROL_PREFIX}/*`]: async (request) => {
       const incoming_request: IncomingRequest = {
         url: request.url,
         headers: request.headers.toJSON(),

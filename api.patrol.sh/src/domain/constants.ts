@@ -1,0 +1,1 @@
+export const API_PATROL_PREFIX = "p"
