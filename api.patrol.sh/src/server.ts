@@ -4,12 +4,12 @@ const server = Bun.serve({
   development: _env.NODE_ENV === 'dev',
   port: _env.PORT,
   routes: {
-    "/": new Response("Patrol API Gateway", { status: 200, headers: { 'Content-Type': 'text/plain' } }),
+    "/": new Response("Patrol API Gateway"),
     "/health": () =>  {
       return Response.json({
         status: "ok",
         timestamp: new Date().toISOString(),
-      }, { status: 200, headers: { 'Content-Type': 'application/json' } })
+      }, { status: 200 })
     }
   }
 })
