@@ -21,5 +21,3 @@ export class LocalFileLoadPatrolConfig implements LoadPatrolConfig {
     throw new InvalidPatrolConfigError(error.message);
   }
 }
-
-new LocalFileLoadPatrolConfig().load().then(console.log).catch(console.error)
