@@ -1,6 +1,6 @@
 export type IncomingRequest = {
 	readonly method: string;
-	readonly body: unknown;
+	readonly body: unknown | null;
 	readonly headers: Record<string, string>;
 	readonly params: Record<string, string>;
 	readonly url: string;
