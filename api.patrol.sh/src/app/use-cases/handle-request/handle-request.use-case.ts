@@ -26,8 +26,10 @@ export class HandleRequestUseCase {
 			};
 		}
 
+    // console.log("==>==> request",request)
     const response = await this.deps.request_maker.make(request)
-    
+    // console.log("==>==> response",response)
+
     return response;
 	}
 }

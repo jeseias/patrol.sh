@@ -9,5 +9,5 @@ export type IncomingRequest = {
 export type OutgoingResponse = {
 	status_code: number;
 	headers: Record<string, string>;
-	body: unknown;
+	body: unknown | null;
 };

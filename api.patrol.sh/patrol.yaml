@@ -1,8 +1,8 @@
 services:
   - name: service_a
-    prefix: service_a
+    prefix: f
     destination: ${SERVICE_A_URL}
     
   - name: "service_b"
-    prefix: service_b
+    prefix: s
     destination: ${SERVICE_B_URL}
