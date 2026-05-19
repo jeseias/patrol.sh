@@ -13,4 +13,5 @@ export const patrol_config = z
 	})
 	.strict();
 
+export type Service = z.infer<typeof service>;
 export type PatrolConfig = z.infer<typeof patrol_config>;

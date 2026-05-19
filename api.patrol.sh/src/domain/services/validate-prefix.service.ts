@@ -5,19 +5,20 @@ import {
 	NoPatrolConfigFoundError,
 	ServiceNotFoundError,
 } from "../errors";
-import type { PatrolConfig } from "../patrol";
+import type { PatrolConfig, Service } from "../patrol";
 import type { IncomingRequest } from "../types";
 
 export class ValidatePrefixService {
 	execute(
 		request: IncomingRequest,
 		config: PatrolConfig | null,
-	): [DomainError | null, PatrolConfig | null] {
+	): [DomainError, null, null] | [null, PatrolConfig, Service] {
 		if (!config) {
 			return [
 				new NoPatrolConfigFoundError(
 					"Please create a patrol.yaml file to configure the gateway",
 				),
+				null,
 				null,
 			];
 		}
@@ -31,6 +32,7 @@ export class ValidatePrefixService {
 					`Please provide a prefix after ${current_url}`,
 				),
 				null,
+				null,
 			];
 		}
 
@@ -40,9 +42,21 @@ export class ValidatePrefixService {
 			return [
 				new InvalidPrefixError(`Invalid prefix: ${incoming_prefix}.`),
 				null,
+				null,
 			];
 		}
 
-		return [null, config];
+		const service =
+			config.services.find((service) => service.prefix === incoming_prefix) ??
+			null;
+		if (!service) {
+			return [
+				new ServiceNotFoundError(`Service not found: ${incoming_prefix}`),
+				null,
+				null,
+			];
+		}
+
+		return [null, config, service];
 	}
 }

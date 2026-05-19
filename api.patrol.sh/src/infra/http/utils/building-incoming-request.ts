@@ -1,9 +1,9 @@
-import type { IncomingRequest } from "@/domain"
-import type { BunRequest } from "bun"
+import type { BunRequest } from "bun";
+import type { IncomingRequest } from "@/domain";
 
 /**
  * Build incoming request from BunRequest
- * @param req 
+ * @param req
  * @returns IncomingRequest {
  *   method: string;
  *   body: unknown | null;
@@ -12,12 +12,14 @@ import type { BunRequest } from "bun"
  *   url: string;
  * }
  */
-export const build_incoming_request = (req: BunRequest): IncomingRequest => {
-  return {
-    method: req.method,
-    body: req.body,
-    headers: req.headers.toJSON(),
-    url: req.url,
-    params: req.params,
-  }
-}
+export const build_incoming_request = async (
+	req: BunRequest,
+): Promise<IncomingRequest> => {
+	return {
+		method: req.method,
+		body: req.body ? await req.body.json() : null,
+		headers: req.headers.toJSON(),
+		url: req.url,
+		params: req.params,
+	};
+};

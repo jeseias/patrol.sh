@@ -1,16 +1,19 @@
-import {
-	API_PATROL_PREFIX,
-	type PatrolConfig,
-} from "./domain";
+import { R } from "@/app/utils/result";
+import { API_PATROL_PREFIX, type PatrolConfig } from "./domain";
 import { _env } from "./infra/config";
 import { use_case_factory } from "./infra/factories";
 import { HTTP } from "./infra/http";
+
+if (!globalThis.R) {
+	globalThis.R = R;
+}
 
 export let global_patrol_config: PatrolConfig | null = null;
 
 const server = Bun.serve({
 	development: _env.NODE_ENV === "dev",
 	port: _env.PORT,
+	idleTimeout: 30,
 	routes: {
 		"/": new Response("Patrol API Gateway"),
 		"/health": () => {
@@ -23,11 +26,12 @@ const server = Bun.serve({
 			);
 		},
 		[`/${API_PATROL_PREFIX}/*`]: async (req) => {
-      return HTTP.wc(HTTP.bir(req), {
-        body: null,
-        headers: {},
-        status_code: 200
-      })
+      const incoming_request = await HTTP.bir(req)
+			const response = await use_case_factory
+				.handle_request_use_case()
+				.execute(incoming_request);
+
+			return HTTP.wc(incoming_request, response);
 		},
 	},
 });
