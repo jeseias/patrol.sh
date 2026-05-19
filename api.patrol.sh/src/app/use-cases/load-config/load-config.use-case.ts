@@ -8,6 +8,6 @@ export class LoadConfigUseCase {
 	constructor(private readonly deps: Deps) {}
 
 	async execute() {
-		return this.deps.load_patrol_config.load();
+		return await this.deps.load_patrol_config.load();
 	}
 }

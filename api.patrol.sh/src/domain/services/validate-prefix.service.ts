@@ -5,14 +5,14 @@ import {
 	NoPatrolConfigFoundError,
 	ServiceNotFoundError,
 } from "../errors";
-import type { PatrolConfig, Service } from "../patrol";
+import type { PatrolConfig, PatrolService } from "../patrol";
 import type { IncomingRequest } from "../types";
 
 export class ValidatePrefixService {
 	execute(
 		request: IncomingRequest,
 		config: PatrolConfig | null,
-	): [DomainError, null, null] | [null, PatrolConfig, Service] {
+	): [DomainError, null, null] | [null, PatrolConfig, PatrolService] {
 		if (!config) {
 			return [
 				new NoPatrolConfigFoundError(

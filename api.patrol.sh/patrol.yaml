@@ -1,3 +1,10 @@
+cors:
+  open: true
+  # allowed_origins:
+  #   # - http://webhook.patrol.sh
+  #   - http://localhost:5173
+  
+
 services:
   - name: service_a
     prefix: f

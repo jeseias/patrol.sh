@@ -1,4 +1,4 @@
-import type { IncomingRequest, OutgoingResponse } from "@/domain";
+import type { IncomingRequest, OutgoingResponse, PatrolCors } from "@/domain";
 
 /**
  * Add CORS headers to the response
@@ -14,9 +14,19 @@ import type { IncomingRequest, OutgoingResponse } from "@/domain";
 export const with_cors = (
 	req: IncomingRequest,
 	res: OutgoingResponse | null,
+	cors: PatrolCors,
 ) => {
 	const headers = new Headers(req.headers);
-	headers.set("Access-Control-Allow-Origin", "*");
+	const allowed_origins = cors.allowed_origins?.[0]
+		? cors.allowed_origins.join(", ")
+		: "";
+
+	const incoming_origin = headers.get("Access-Control-Request-Origin") ?? "";
+	if (!allowed_origins.includes(incoming_origin)) {
+		headers.set("Access-Control-Allow-Origin", incoming_origin);
+	}
+
+	headers.set("Access-Control-Allow-Origin", allowed_origins);
 	headers.set(
 		"Access-Control-Allow-Methods",
 		"GET, POST, PUT, PATCH, DELETE, OPTIONS",
