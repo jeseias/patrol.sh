@@ -13,7 +13,7 @@ export let global_patrol_config: PatrolConfig | null = null;
 use_case_factory
 	.load_config_use_case()
 	.execute()
-	.then(async (config) => {
+	.then((config) => {
 		global_patrol_config = config;
 
 		const server = Bun.serve({
